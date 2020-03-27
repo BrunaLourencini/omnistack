@@ -1,0 +1,197 @@
+OmniStack
+
+Aula 1
+
+Instalação da linguagem no projeto.
+
+1) sempre instalar a versão LTS, pois é a última versão estável com suporte estendido.
+2) não realizar o download diretamente do recomendado na tela, pois se instalar dessa forma
+será instalado uma versão estática no projeto, dessa forma, quando precisar realizar uma atualização 
+da versão da linguagem, será muito mais complicado e talvez precise realizar uma desinstalação total.
+3) para que em seu projeto seja possível fazer uma gestão do controle de versão da linguagem, 
+instalar a mesma por meio de um gerenciador de pacotes
+
+Dependências do projeto
+
+ao executar o comando: npm init -y
+será criado um arquivo chamdo package.json, onde será armazenado todas as informações da dependência do projeto.
+
+Rotas X Framework
+
+Todo projeto precisa de uma rota ou parâmetros, exemplo: meuprojeto.com./contato ou meuprojeto.com./user/5  
+O framework "Express" já irá lhe trazer as rotas configuradas
+É um micro framework, ele ajudará dar um start em nosso projeto, o restante deverá ser feito via código.
+
+ao criar o index do projeto, precisamos importar as dependências do framework do Express, para importar, iremos montar uma constante.
+vamos criar uma variável que irá instânciar nossa aplicação
+criar uma rota para retornar o hello word no node
+o '/' é quando estou informando minha rota raíz
+na sequência vou fazer com que minha aplicação escute a porta 3333
+para que nossa aplicação interprete o json dentro do corpo, precisamos informar a nossa aplicação que estamos utilizando o json nas requisições
+
+Dessa forma em nosso projeto, para rodar e visualizar em localhost, iremos dar esse comando no terminar para rodar a aplicação, de forma manual: node index.js
+
+Portas localhosts
+curiosidades: a porta 3000 iremos rodar sempre o react
+              a porta 3333 iremos rodar o node
+
+CreateReactApp
+create react app, é uma ferramenta que já cria toda uma estrutura do react, seria como uma "camada" final para visualizarmos os resultados de bate pronto
+para instalar essa ferramenta vamos trabalhar com o npx ao inves no npm, isso pq o npx executa um pacote externo, sem realizar uma instalação global
+no terminal dar o seguinte comando: npx create-react-app frontend
+frontend seria o nome do projeto, será criado uma pasta com esse nome
+para visualizar o react funcionando, é necessário dar o seguinte comando na pasta do frontend: npm start
+esse comando npm start está definido dentro do package.json, sendo o start um scritp definido por lá
+
+sobre o ReactNative:
+com ele é possível criar uma única aplicação, todo código feito em javascript, será interpretado e gerado uma interface totalmente nativa, para ser visualizado tanto no android quanto no ios
+sendo o reactnative implementa dentro da nossa aplicação um framework chamado javascript cor, que da o entendido da linguagem javascritp para o mobile, fazendo com que
+os sistemas ios e android interpretem o javascript para construção e manipulação da interface.
+
+EXPO - não suporte o bluetoof, é voltado para aplicações pequenas, aplicações fechadas, que não vão crescer para o infinito e além. Ele é um aplicativo que pode ser instalado através da PlayStore.
+para este projeto, estaremos fazendo uso do EXPO
+nem todos os projeto deverá ser utilizado o EXPO, para isso, para cada projeto é necessário entender o que sua estrutura irá precisar.
+para este projeto decidimos usar o EXPO, pois sem ele precisaríamos instalar em nosso sistema tanto o Android Studio para obter a SDK de desenvolvimento Android,
+e o Xcode (para Mac) para obter a SDK do iOS
+Sendo assim, nossa iniciação no desenvolvimento ficaria muito penosa, já que essas SDK's não são extremamente simples de instalar e livre de erros.
+
+ao invés da nossa aplicação criar um executável, o EXPO fará essa execução em nosso projeto, pois ele já tem toda a parte nativa do reactnative, como as APIs de mapa | camera | geolocalização etc...
+então nesse projeto, trabalhando com o EXPO, ficaremos apenas responsáveis de criar uma aplciação em js e possuir o Expo instalado em nosso dispositivo, para tratar as dependências automáticas das APIs e um emulador
+
+Aula 2
+
+curiosidades
+Para abrir o vscode pelo terminal, você pode executar o comando: code .
+Caso o vscode não abra, vá até seu editor dê um ctrl + shift + p e digite install code, onde será exibido o Shell Command: Install'code' command in PATH, excecuta ele e reinicie seu terminal.
+
+no node, vamos entender que uma rota, é um recurso, então "/users", será o recurso de usuários
+
+métodos HTTPs utilizados no projeto GET | POST | PUT | DELET
+
+no caso do método GET, conseguimos visualizar o retorno através do navegador.
+
+Para consultarmos o retorno dos demais métodos (post, put e delet), podemos utilizar o insomnia.rest, porém ele só é possível de utilizar em sistemas operacionais de 64bits.
+
+Para qualquer sistema, ou sistema mais antigo, temos a alternativa de visualizar os retornos das rotas, utilizando o POSTMAN
+
+
+Tipos de Parâmetros:
+
+Query Params: são parâmetros "nomeados" que enviados na rota, ou seja, parâmetros que inserimos dentro da url requisitada, após o "?" (tipo filtro ou paginação). Exemplo: http:localhost:3333/users
+Então para um parâmetro retornar na requisição, devemos considerar request.query;
+Exemplo: const params = request.query;
+
+Route Params: são parâmetros utilizados para identificar algo específico do recurso/rota/entidade. Exemplo: http:localhost:3333/users/1
+Então para retornar um parâmetro específico dentro da rota, devemos considerar request.params;
+Exemplo: const params = request.params;
+
+Request Body: é o corpo da requisição, utilizado para criar ou alterar recursos
+Então para criar um objeto dentro do body, devemos considerar request.body
+Exemplo: const body = request.body;
+
+ROTAS:
+
+request - tem a função de guardar todos os dados da requisição de rotas
+response - responsável por retornar uma resposta para rota solicitada 
+.json | .send | etc... é o formato de como a resposta irá se apresentar no navegador
+Exemplo: return response.json({});
+
+No caso, se eu quiser permitir um filtro da requisição, preciso montar a seguinte constante:
+Exemplo: const params = request.query;
+
+Problemas na hora de rodar a aplicação - 
+Terminal:
+ps aux | grep node - ele lista os processos que estão rodando
+kill -9 PID 10682 - você  mata o processo que deseja parar, o 10682 seria o id que está rodando o processo
+fechei tudo e abri novamente, voltou a funcionar.
+
+ou
+
+ps aux | grep npm
+kill -9 16855
+
+Servidor:
+Para não ter que toda hora ficar reiniciando o node, através do comando: node index.js, vamos instalar um pacote chamado nodemon.
+Comando: npm install nodemon -D
+Estamos instalando com o -D, para que ele não instale a dependência no projeto inteiro, mas crie uma dependência a parte como "devDependencies", pois no momento que jogarmos o projeto em um servidor de produção, não precisaremos ficar monitorando o código.
+Sendo assim, o nodemon é uma bliblioteca que iremos utilizar apenas enquanto estivermos desenvolvendo
+
+Dando sequência, após a instalação do nodemon, no arquivo package.json, podemos criar scritps personalizados.
+Então iremos altera o scritp atual de: "test": "echo \"Error: no test specified\" && exit 1"
+Para: "start": "nodemon index.js"
+Volto para o terminal, dou um comando: npm start e pronto
+Dessa forma, ao invés de rodar manualmente o comando: node index.js, ele será startado automaticamente
+Porém ainda é possível dar um ctrl + c, para stopar o processo e resetar novamente através do npm start, sempre que precisar
+
+Banco de Dados:
+
+Atualmente no mercado, os mais utilizados são:
+
+SQL: MySQL, SQLite, PostgreSQL, Oracle, Microsoft SQL Server...
+SQL - é uma linguagem universal
+NoSQL: MongoDB, CouchDB...
+NoSQL - cada banco possui sua linguagem
+
+Para este projeto, optamos por utilizar o Banco SQL - SQLite
+Motivo: para este banco não é necessário instalar nada, ele será como um arquivo dentro da nossa aplicação, sem contar que o SQL, irá trazer as informações mais estruturadas do que o NoSQL
+
+Há duas estratégias que podemos adotar para trabalhar com o banco:
+
+1) Driver: SELECT * FROM users
+2) Query Builder: table('users').select('*').where()
+
+Utilizaremos a segunda estratégia, pois podemos escrever em javascript e estará pronto para aceitar qualquer banco SQL
+
+Sendo assim, o Query Builder adotado será o KNEX.JS
+Para instalar, basta dar o seguinte comando: npm install knex e na sequência dar o comando: npm install sqlite3
+
+Conectando o Banco de Dados
+npx knex init (para criar um novo arquivo dentro do projeto)
+No arquivo gerado, será onde ficará as configurações do nosso banco
+
+Definindo ENTIDADES do projeto:
+
+- ONG
+- Caso (incident)
+
+Definindo FUNCIONALIDADES:
+
+- Login de ONG
+- Logout de ONG
+- Cadastro de ONG
+- Cadastrar novos casos
+- Deletar casos
+- Listar casos específicos de uma ONG
+- Listar todos os casos
+- Entrar em contato com a ONG
+
+Com essas definições, precisaremos cirar as tabelas do banco de dados
+
+Então utilizando o Knex.js, faremos uso dos migrations, que nos permite criar as tabelas e manter um histórico das mesmas, como se fosse uma versão do nosso controle de dados.
+Esse recurso é muito bom, para quando existe mais de um dev no projeto
+
+Atulizar os dados do arquivo knexfile.js
+
+Rodar o comando abaixo, para criar a primeira tabela
+npx knex migrate:make create_ongs
+
+Para ir criando e configurando a tabela, é só verificar a documentação do knex > migrations
+
+Na sequência rodando o comando npx knex migrate:latest, o arquivo do banco será criado, db.sqlite
+
+Criando a próxima tabela, onde vou escrever os casos da minha aplicação: npx knex migrate:make create_incidents
+
+Rodar novamente o comando npx knex migrate:latest
+
+Agora precisamos criar uma conexão com o banco para permitir a criação de ongs. Então realizamos a criação do arquivo connection.js dentro de database
+
+CORS 
+rodar no terminal o comando: npm istall cors
+
+
+
+
+
+
+
+
